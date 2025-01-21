@@ -1,0 +1,98 @@
+{
+  "repositoryPurpose": "Automate the setup of a Windows 10 laptop with WSL Ubuntu for development and DevOps tasks.",
+  "primaryGoals": [
+    "Provide dynamic installation scripts for GUI applications and CLI tools using Winget and Scoop in both PowerShell and Nushell.",
+    "Support multiple shells (PowerShell and Nushell) for a flexible development environment.",
+    "Enable reproducible WSL Ubuntu environments using Devbox as the primary package manager for system-wide tools.",
+    "Simplify dotfile management with GNU Stow for consistent configuration replication across environments."
+  ],
+  "scriptGuidelines": {
+    "scripts/windows": {
+      "description": "Contains scripts for installing GUI applications (Winget) and CLI tools (Scoop) interactively using Gum.",
+      "scripts": [
+        {
+          "name": "winget.ps1",
+          "description": "A PowerShell script to dynamically install GUI applications using Winget.",
+          "features": [
+            "Interactive application selection with Gum.",
+            "Idempotency to skip already-installed applications.",
+            "Silent installations with necessary agreements accepted."
+          ]
+        },
+        {
+          "name": "winget.nu",
+          "description": "A Nushell script to dynamically install GUI applications using Winget.",
+          "features": [
+            "Leverages Nushell’s structured data pipelines for concise scripting.",
+            "Interactive application selection with Gum.",
+            "Idempotent behavior to avoid redundant installations."
+          ]
+        },
+        {
+          "name": "scoop.ps1",
+          "description": "A PowerShell script to dynamically install CLI tools using Scoop.",
+          "features": [
+            "Interactive tool selection with Gum.",
+            "Ensures tools are only installed once.",
+            "Works seamlessly in Windows PowerShell and PowerShell 7+."
+          ]
+        },
+        {
+          "name": "scoop.nu",
+          "description": "A Nushell script to dynamically install CLI tools using Scoop.",
+          "features": [
+            "Uses Nushell's structured data model for concise scripting.",
+            "Interactive tool selection with Gum.",
+            "Idempotency to skip already-installed tools."
+          ]
+        }
+      ]
+    },
+    "scripts/ubuntu": {
+      "description": "Contains scripts for setting up WSL Ubuntu environments using Devbox.",
+      "scripts": [
+        {
+          "name": "dynamic-devbox.nu",
+          "description": "A Nushell script to dynamically install global tools in WSL Ubuntu using Devbox.",
+          "features": [
+            "Interactive package selection using Gum.",
+            "Uses Devbox for reproducible and isolated installations.",
+            "Supports installation of Rust tools, utilities, and other packages essential for development."
+          ]
+        },
+        {
+          "name": "dynamic-devbox.ps1",
+          "description": "A PowerShell script to dynamically install global tools in WSL Ubuntu using Devbox.",
+          "features": [
+            "Interactive package selection using Gum.",
+            "Uses Devbox for reproducible and isolated installations.",
+            "Focuses on compatibility with WSL Ubuntu through PowerShell."
+          ]
+        }
+      ]
+    }
+  },
+  "documentationGuidelines": {
+    "readmeStructure": [
+      "Purpose of the repository and target audience.",
+      "Overview of setup steps: Windows applications, WSL Ubuntu setup, and dotfiles.",
+      "Prerequisites for running the scripts.",
+      "Detailed usage instructions for each script.",
+      "Next steps and planned enhancements."
+    ],
+    "nextUpdates": [
+      "Include detailed instructions for using Devbox to set up WSL Ubuntu environments.",
+      "Document GNU Stow usage for managing dotfiles.",
+      "Add testing instructions for all scripts.",
+      "Provide a comparison between PowerShell and Nushell script usage for Windows tasks."
+    ]
+  },
+  "bestPractices": [
+    "Ensure all scripts are idempotent to avoid redundant installations.",
+    "Use Gum for all interactive selections to provide a consistent user experience.",
+    "Maintain compatibility with both PowerShell and Nushell wherever possible.",
+    "Keep documentation clear, concise, and beginner-friendly.",
+    "Provide fallback instructions for manual installations if automation fails."
+  ]
+}
+

@@ -3,6 +3,8 @@
 This repository provides a comprehensive guide and necessary scripts to set up a new Windows 10 laptop with Windows Subsystem for Linux (WSL) running Ubuntu. It is designed to simplify the process for new users and serve as a personal reference for repeatable setups.
 
 ## **Purpose**
+
+This is not a one stop plug and play solution, but does act as a useful guide to help remind myself what needs to be installed when setting up a new Windows 10 WSL environment for development. Spend time adding applications to the script. These are merely the tools that I favor.
 This repository aims to:
 - Automate the installation of essential tools and applications on both Windows and WSL Ubuntu.
 - Provide scripts and instructions to ensure a consistent development environment.
@@ -98,6 +100,36 @@ To run the installation scripts, ensure the following prerequisites are met:
 
 3. **Path Accessibility**:
    - Windows PowerShell must correctly access paths within the WSL environment if needed for WSL-based configurations.
+
+---
+
+## **Running Scripts from WSL in PowerShell**
+If the repository is cloned in WSL Ubuntu but the scripts need to be run in PowerShell, you can access the WSL directory from PowerShell in the following ways:
+
+### **Option 1: Access WSL Directory in PowerShell**
+1. Open PowerShell.
+2. Navigate to the WSL directory using the `\wsl$` path:
+   ```powershell
+   cd \wsl$\Ubuntu\home\<your-username>\repos\win10-wsl-ubuntu-setup
+   ```
+3. Run the desired script:
+   ```powershell
+   ./scripts/windows/dynamic-winget.ps1
+   ```
+
+### **Option 2: Copy Repository to a Windows Directory**
+1. From WSL, copy the repository to a Windows-accessible location (e.g., Documents):
+   ```bash
+   cp -r ~/repos/win10-wsl-ubuntu-setup /mnt/c/Users/<your-username>/Documents/
+   ```
+2. Open PowerShell and navigate to the copied directory:
+   ```powershell
+   cd C:\Users\<your-username>\Documents\win10-wsl-ubuntu-setup
+   ```
+3. Run the desired script:
+   ```powershell
+   ./scripts/windows/dynamic-winget.ps1
+   ```
 
 ---
 

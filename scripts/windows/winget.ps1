@@ -1,7 +1,7 @@
 # dynamic-winget.ps1
-# Use Gum to dynamically select and install winget packages.
+# Dynamically generate a Winget installation script using Gum for interactive selection.
 
-# List of GUI applications with descriptions
+# Define a list of GUI applications with descriptions
 $apps = @(
     @{ Name = "Docker Desktop"; Id = "Docker.DockerDesktop"; Description = "Container management tool." },
     @{ Name = "Google Chrome"; Id = "Google.Chrome"; Description = "Web browser for fast and secure browsing." },
@@ -13,13 +13,13 @@ $apps = @(
     @{ Name = "Ubuntu"; Id = "Canonical.Ubuntu"; Description = "Linux distribution for WSL." }
 )
 
-# Prepare Gum input string
-$options = $apps | ForEach-Object { "$($_.Name): $($_.Description)" } -join "`n"
+# Build the selection string for Gum
+$options = ($apps | ForEach-Object { "$($_.Name): $($_.Description)" }) -join "`n"
 
-# Interactive selection using Gum
-$selected = gum choose --no-limit <<< $options
+# Use Gum to allow interactive selection
+$selected = $options | gum choose --no-limit --cursor.foreground "cyan" --item.foreground "white" --selected.foreground "green" --selected.background "black"
 
-# Generate winget commands for selected apps
+# Generate Winget commands for selected apps
 $script = ""
 foreach ($app in $apps) {
     if ($selected -match [regex]::Escape($app.Name)) {
@@ -27,12 +27,13 @@ foreach ($app in $apps) {
     }
 }
 
-# Save the script
+# Save the generated installation script
 $scriptPath = "$PSScriptRoot/generated-winget-install.ps1"
 $script | Out-File -Encoding utf8 $scriptPath
 Write-Host "Generated script saved to $scriptPath"
 
-# Optionally execute the script
+# Optionally execute the generated script
 if ((Read-Host "Run the generated script? (y/n)").ToLower() -eq "y") {
     & $scriptPath
 }
+
